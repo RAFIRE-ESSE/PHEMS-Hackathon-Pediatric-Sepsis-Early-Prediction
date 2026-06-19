@@ -1,54 +1,59 @@
-# 💊 PHEMS Hackathon — Pediatric Sepsis Early Prediction
+# PHEMS Hackathon — Pediatric Sepsis Early Prediction
 
-![Healthcare](https://img.shields.io/badge/-Healthcare-1a1b26?style=flat-square&logoColor=c0caf5) ![ICU](https://img.shields.io/badge/-ICU-1a1b26?style=flat-square&logoColor=c0caf5) ![Early Warning Systems](https://img.shields.io/badge/-Early%20Warning%20Systems-1a1b26?style=flat-square&logoColor=c0caf5) ![Classification](https://img.shields.io/badge/-Classification-1a1b26?style=flat-square&logoColor=c0caf5) ![LightGBM](https://img.shields.io/badge/-LightGBM-1a1b26?style=flat-square&logoColor=c0caf5)
+![Domain](https://img.shields.io/badge/Domain-ICU%20%26%20Critical%20Care%20AI-blue?style=flat-square) ![Host](https://img.shields.io/badge/Host-PHEMS%20Consortium-lightgrey?style=flat-square)
 
-![Banner](./banner.png)
+![Research Banner](./banner.png)
 
-> [!IMPORTANT]
-> **Host:** `PHEMS Consortium`  
+> **Host:** [`PHEMS Consortium`]  
 > **Platform Link:** [Kaggle Competition](https://www.kaggle.com/competitions/phems-hackathon)  
 > **Dataset Link:** [Kaggle Dataset](https://www.kaggle.com/competitions/phems-hackathon/data)  
 > **Domain:** `ICU & Critical Care AI`
 
-## 📖 Overview
+## Overview
 
-Early warning system for pediatric sepsis in the ICU. The goal is to detect sepsis onset hours before clinical diagnosis using EHR telemetry.
+This repository contains the developmental workspace and notebooks for the **PHEMS Hackathon — Pediatric Sepsis Early Prediction** project. The primary focus of this project is in the domain of **ICU & Critical Care AI** on PHEMS Consortium. The codebase represents an iterative implementation of machine learning pipelines, structured to process datasets, train models, and validate predictions.
 
-## ⚙️ Standard Pipeline Workflow
+### Technical Methodology & Implementation
+
+The codebase features a total of 11 cells across 1 notebook(s). The system implements several key architectural elements:
+- **Key Algorithms & Utilities**: Procedural helpers and utilities facilitate operations, notably: `get_feats`, `get_next_day`, `seed_everything`.
+- **Training & Optimization**: Includes cross-validation strategy for stable predictions.
+
+## System Architecture
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'background': '#0f0f12', 'primaryColor': '#1a1b26', 'edgeLabelBackground':'#11111b', 'tertiaryColor': '#1a1b26'}}}%%
-flowchart LR
-    A[Data Gathering] --> B[Preprocessing & EDA]
-    B --> C[Model Training]
-    C --> D[Inference & Submission]
-    style A fill:#1e1e24,stroke:#7aa2f7,stroke-width:2px,color:#c0caf5
-    style B fill:#1e1e24,stroke:#bb9af7,stroke-width:2px,color:#c0caf5
-    style C fill:#1e1e24,stroke:#f7768e,stroke-width:2px,color:#c0caf5
-    style D fill:#1e1e24,stroke:#9ece6a,stroke-width:2px,color:#c0caf5
+flowchart TD
+    Data[Tabular Datasets] --> Features[Feature Engineering & Selection]
+    Features --> CV[Cross-Validation K-Fold Split]
+    CV --> GBDT[GBDT Training: LightGBM / CatBoost / XGBoost]
+    GBDT --> Ensemble[Weighted Blending & Ensembling]
+    Ensemble --> Pred[Out-of-Fold Predictions & Inference]
+    style Data fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
+    style Features fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
+    style CV fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
+    style GBDT fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
+    style Ensemble fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
+    style Pred fill:#1f2937,stroke:#4b5563,stroke-width:1.5px,color:#f9fafb
 ```
 
-## 🗂️ Notebook Architecture & Inventory
+## Notebook Architecture
 
-### 📂 Inference & Submission
-*Prediction pipeline and Kaggle submission file generation.*
+### Inference & Submission
 
-| Script / Notebook | Type | Versions | Average Size | Core Stack / Techniques |
-|:------------------|:-----|:---------|:-------------|:------------------------|
-| 📄 [LightGBM_LightGBM_XGBoost_XGBoost_CatBoost_SVM_Inference](./Inference%20%26%20Submission/LightGBM_LightGBM_XGBoost_XGBoost_CatBoost_SVM_Inference.ipynb) | Single Notebook | `v1` | `29 KB` | `LightGBM, XGBoost, CatBoost` |
+| Notebook / Script | Type | Versions | Average Size | Core Stack / Techniques |
+| :--- | :--- | :--- | :--- | :--- |
+| [LightGBM_LightGBM_XGBoost_XGBoost_CatBoost_SVM_Inference](./Inference%20%26%20Submission/LightGBM_LightGBM_XGBoost_XGBoost_CatBoost_SVM_Inference.ipynb) | Single Notebook | v1 | 29 KB | CatBoost, LightGBM, Scikit-Learn, XGBoost |
 
----
+## Navigation Guidelines
 
-## 🚀 Navigation & Usage Guidelines
-
-> [!TIP]
-> 1. **EDA & Preprocessing**: Verify data loaders, actigraphy or DICOM image transformations before model training.
-> 2. **Training & Optimization**: Check model definition parameters and training logs to reproduce network weights.
-> 3. **Inference & Post-Processing**: Run final pipelines to verify predictions and check submission formats.
-
+> **Stage Guidelines**
+>
+- **EDA & Preprocessing**: Verify data loaders and inspect class distributions before model design.
+- **Training & Validation**: Check training runs, loss curves, and model validation scores to evaluate performance.
+- **Inference & Ensembling**: Run predictions on testing files and verify submission formatting.
 
 ---
 
-> *"Sepsis is a silent predator; the algorithm races against the fading pulse."*
+> "Sepsis is a silent predator; the algorithm races against the fading pulse."
 >
 > — **Vigneshwaran S**
